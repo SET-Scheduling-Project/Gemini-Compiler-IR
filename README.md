@@ -1,15 +1,14 @@
-# Open-source Overview and Plan
+# Future Plan
 
-We have done our best to obtain authorization to open-source many files that showcase the workflow of the end-to-end Gemini-based compiler developed for our high-performance commercial AI accelerator, the ZEBU FPGA-based Verification Platform and corresponding results. While we are currently unable to release the full source code due to IP flow restrictions, we believe these materials and documentation effectively demonstrate our Gemini-based compiler and providing insight into the entire workflow. `Additionally, **we commit to setting up a small-scale cloud platform** once the paper is accepted and the chip tape-out is complete. This platform will allow users to not only access the open-sourced Gemini scheduler but also modify or even replace our scheduler (as long as the output is converted to IR format), enabling it to be translated into instructions executable on the chip.`
-
-# Tensor-shuttle-based Compiler Workflow Overview
-
-This document outlines the workflow of our compiler. The initial input supports networks in TFLite, PyTorch, and ONNX formats. After frontend processing—including quantization and basic fusion (e.g., CONV+BN+ReLU)—it outputs the Frontend IR. Next, the Gemini Scheduler performs global optimization, generating the Scheduler IR, which includes explicit address optimizations as noted. Finally, the Assembler converts the IR into instructions for deployment on the chip. Since our chip just recently completed tape-out and is still in the testing phase, we will release some actual measured data later. Therefore, we are showing the results from the ZEBU platform and the **Package Shot** (shown below), where the package shot highlights one IO Die and two compute Dies.
+In the future, we plan to establish a cloud platform that allows users to access our series of chiplet-based chips, enabling deployment from mapping schemes to instructions with direct insights into performance and even energy efficiency (detailed examples and descriptions are provided below). Our first-generation chip, comprising one IO Die and two compute Dies with a total compute capacity of 64 TOPs, returned from fabrication on November 5th (shown below). Since testing is still in progress, we are currently presenting preliminary results based on the ZEBU verification platform.
 
 ![Package Shot](./Package_Shot.jpg)
 
+# Gemini-based Compiler Workflow Overview
 
-The workload example we use is an **INT8-quantized ResNet50, ResNet34, and YOLOv3** with a **batch size ranging from `1 to 64?`**. The platform is a **single-core, 8 TOPS** computing power scaled-down accelerator (due to ZEBU resource limitations, simulating one core with a single board already exceeds 50% LUT resource utilization). For a more detailed hardware synthesis log of the ZEBU, please refer to [backend_log](./ZeBu_files/backend_default_globalLog.log).
+This document outlines the workflow of our compiler. The initial input supports networks in TFLite, PyTorch, and ONNX formats. After frontend processing—including quantization and basic fusion (e.g., CONV+BN+ReLU)—it outputs the Frontend IR. Next, the Gemini Scheduler performs global optimization, generating the Scheduler IR, which includes explicit address optimizations as noted. Finally, the Assembler converts the IR into instructions for deployment on the chip. Since our chip just recently completed tape-out and is still in the testing phase, we will release some actual measured data later. Therefore, we are showing the results from the ZEBU platform.
+
+The workload example we use is an **INT8-quantized ResNet50** with a **batch size ranging from `1 to 64`**. The platform is a **single-core** scaled-down accelerator (due to ZEBU resource limitations, simulating one core with a single board already exceeds 50% LUT resource utilization). For a more detailed hardware synthesis log of the ZEBU, please refer to [backend_log](./ZeBu_files/backend_default_globalLog.log).
 
 
 ![ZeBu](./ZeBu_files/ZeBu.jpeg)
